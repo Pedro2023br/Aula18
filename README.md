@@ -1,70 +1,125 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# Projeto: Exercícios com React Hooks
 
-## Available Scripts
+Este projeto foi criado para praticar o uso de **React Hooks** como `useState` em três componentes: `Contador`, `BotaoAlternador` e `ListaDeTarefas`.
 
-In the project directory, you can run:
+## **Componentes Criados**
 
-### `npm start`
+### 1. **Contador**
+#### **Descrição**
+O componente `Contador` implementa um contador simples que permite incrementar e decrementar o número exibido na tela. Ele utiliza o **hook `useState`** para gerenciar o estado do número.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### **Blocos de Código e Explicações**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Estado Inicial**
+   ```javascript
+   const [numero, setNumero] = useState(0);
+   ```
+   - `numero`: Representa o valor atual do contador.
+   - `setNumero`: Função para atualizar o valor de `numero`.
+   - Inicializamos o estado com `0`.
 
-### `npm test`
+2. **Botões de Incremento e Decremento**
+   ```javascript
+   <button onClick={() => setNumero(numero + 1)}>+1</button>
+   <button onClick={() => numero > 0 && setNumero(numero - 1)}>-1</button>
+   ```
+   - Botão de incremento (`+1`): Incrementa o valor de `numero` ao ser clicado.
+   - Botão de decremento (`-1`): Decrementa o valor apenas se `numero` for maior que `0`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+### 2. **BotaoAlternador**
+#### **Descrição**
+O componente `BotaoAlternador` implementa um botão que alterna entre os estados `"Ligado"` e `"Desligado"`. Cada estado é exibido com uma cor diferente, utilizando CSS dinâmico.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### **Blocos de Código e Explicações**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Estado Inicial**
+   ```javascript
+   const [estado, setEstado] = useState("Desligado");
+   ```
+   - `estado`: Indica se o botão está "Ligado" ou "Desligado".
+   - `setEstado`: Função para alternar o valor do estado.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Função de Alternância**
+   ```javascript
+   const alternarEstado = () => {
+     setEstado(estado === "Ligado" ? "Desligado" : "Ligado");
+   };
+   ```
+   - Verifica o estado atual e alterna para o outro estado.
 
-### `npm run eject`
+3. **Estilo Dinâmico**
+   ```javascript
+   <button className={estado === "Ligado" ? "ligado" : "desligado"}>
+     {estado}
+   </button>
+   ```
+   - Aplica classes CSS diferentes dependendo do estado.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **CSS**
+   ```css
+   .ligado {
+     background-color: green;
+     color: white;
+   }
+   .desligado {
+     background-color: red;
+     color: white;
+   }
+   ```
+   - Define cores para os estados "Ligado" (verde) e "Desligado" (vermelho).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. **ListaDeTarefas**
+#### **Descrição**
+O componente `ListaDeTarefas` implementa uma lista onde o usuário pode adicionar tarefas e removê-las ao clicar nelas. Ele utiliza o **hook `useState`** para gerenciar a lista de tarefas e o texto do campo de entrada.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### **Blocos de Código e Explicações**
 
-## Learn More
+1. **Estados Iniciais**
+   ```javascript
+   const [tarefa, setTarefa] = useState("");
+   const [tarefas, setTarefas] = useState([]);
+   ```
+   - `tarefa`: Armazena o texto digitado no campo de entrada.
+   - `tarefas`: Array que contém as tarefas adicionadas.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Adicionar Tarefa**
+   ```javascript
+   const adicionarTarefa = () => {
+     if (tarefa.trim() !== "") {
+       setTarefas([...tarefas, tarefa]);
+       setTarefa("");
+     }
+   };
+   ```
+   - Verifica se o texto não está vazio.
+   - Adiciona o texto ao array `tarefas` e limpa o campo de entrada.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Remover Tarefa**
+   ```javascript
+   const removerTarefa = (index) => {
+     setTarefas(tarefas.filter((_, i) => i !== index));
+   };
+   ```
+   - Remove a tarefa clicada da lista.
 
-### Code Splitting
+4. **Renderizar Lista**
+   ```javascript
+   <ul>
+     {tarefas.map((item, index) => (
+       <li key={index} onClick={() => removerTarefa(index)}>
+         {item}
+       </li>
+     ))}
+   </ul>
+   ```
+   - Mapeia o array `tarefas` para renderizar cada tarefa como um item da lista.
+   - Permite remover uma tarefa clicando nela.
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Se precisar que eu gere esse conteúdo em um arquivo `.md`, envie um comando ou solicite o upload! 😊
