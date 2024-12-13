@@ -1,6 +1,6 @@
 
-```markdown
-# Projeto: Exercícios com React Hooks
+
+## Projeto: Exercícios com React Hooks
 
 Este projeto foi criado para praticar o uso de **React Hooks** como `useState` em três componentes: `Contador`, `BotaoAlternador` e `ListaDeTarefas`.
 
